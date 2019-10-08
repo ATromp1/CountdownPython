@@ -1,6 +1,7 @@
 from lang_analysis import gen_lang
 from itertools import permutations, product, chain
 from sys import version_info
+from collections import OrderedDict
 
 
 def solve(nums, lang):
@@ -66,11 +67,46 @@ def solve(nums, lang):
     return solutions
 
 
-if __name__ == "__main__":
-    s = input("Type your string with spaces: ")
-    numbers = list(map(int, s.split()))
+# Python code to remove duplicate elements
+def Remove(duplicate):
+    final_list = []
+    for num in duplicate:
+        if num not in final_list:
+            final_list.append(num)
+    return final_list
 
-    lang = gen_lang()
-    sol = solve(numbers, lang)
-    print(sol)
-    print(len(sol))
+
+if __name__ == "__main__":
+    cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 25, 50, 75, 100]
+
+    perm = list(permutations(cards, r=5))
+    res = sorted(list(OrderedDict.fromkeys(perm)))
+
+    sortedList = []
+    for x in res:
+        sortedList.append(sorted(x))
+
+    file = open("result.txt", "w")
+
+    removed_list = Remove(sortedList)
+
+    for x in removed_list:
+        lang = gen_lang()
+        sol = solve(x, lang)
+        file.write(str(x) + " ")
+        file.write(str(len(sol)) + "\n")
+        #print(len(sol))
+
+    file.close()
+
+
+    #s = input("Type your string with spaces: ")
+    #numbers = list(map(int, s.split()))
+    #print(numbers)
+    #lang = gen_lang()
+    #sol = solve(numbers, lang)
+    #print(sol)
+    #print(len(sol))
+
+
+
