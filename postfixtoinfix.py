@@ -36,5 +36,5 @@ def getInfix(exp):
 
 # Driver Code
 if __name__ == '__main__':
-    exp = "abc/*"
+    exp = "ab+1c-d**"
     print(getInfix(exp.strip()))
