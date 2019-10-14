@@ -77,36 +77,36 @@ def Remove(duplicate):
 
 
 if __name__ == "__main__":
-    cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 25, 50, 75, 100]
+    #cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 25, 50, 75, 100]
 
-    perm = list(permutations(cards, r=5))
-    res = sorted(list(OrderedDict.fromkeys(perm)))
+    #perm = list(permutations(cards, r=5))
+    #res = sorted(list(OrderedDict.fromkeys(perm)))
 
-    sortedList = []
-    for x in res:
-        sortedList.append(sorted(x))
+    #sortedList = []
+    #for x in res:
+    #    sortedList.append(sorted(x))
 
-    file = open("result.txt", "w")
+    #file = open("result.txt", "w")
 
-    removed_list = Remove(sortedList)
+    #removed_list = Remove(sortedList)
 
-    for x in removed_list:
-        lang = gen_lang()
-        sol = solve(x, lang)
-        file.write(str(x) + " ")
-        file.write(str(len(sol)) + "\n")
+    #for x in removed_list:
+    #    lang = gen_lang()
+    #    sol = solve(x, lang)
+    #    file.write(str(x) + " ")
+    #    file.write(str(len(sol)) + "\n")
         #print(len(sol))
 
-    file.close()
+    #file.close()
 
 
-    #s = input("Type your string with spaces: ")
-    #numbers = list(map(int, s.split()))
-    #print(numbers)
-    #lang = gen_lang()
-    #sol = solve(numbers, lang)
-    #print(sol)
-    #print(len(sol))
+    s = input("Type your string with spaces: ")
+    numbers = list(map(int, s.split()))
+    print(numbers)
+    lang = gen_lang()
+    sol = solve(numbers, lang)
+    print(sol)
+    print(len(sol))
 
 
 
