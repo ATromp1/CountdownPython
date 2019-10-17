@@ -1,38 +1,44 @@
-from lang_analysis import gen_lang
 from itertools import permutations, product, chain
 from sys import version_info
 from collections import OrderedDict
+
+
+def lang_k_rec(available_o, available_n, k, x, possible):
+    if available_n > 0:
+        lang_k_rec(available_o, available_n - 1, k + 'N', x + 1, possible)
+    if available_o > 0 and x > 1:
+        lang_k_rec(available_o - 1, available_n, k + 'O', x - 1, possible)
+    if available_o == 0 and available_n == 0:
+        possible.append('NN' + k + 'O')
+
+
+def gen_lang():
+    possible_k = [[], [], [], [], []]
+    for av in range(5):
+        lang_k_rec(av, av, '', 2, possible_k[av])
+        possible_k[av].sort()
+    return possible_k
 
 
 def solve(nums, lang):
     assert(len(nums) == 5)
     solutions = {}
     for (lang_i, lang_vec) in enumerate(lang):
-        if len(solutions) == 920:
-            break
         nnums = lang_i + 2
         nops = lang_i + 1
         for numset in permutations(nums, nnums):
-            if len(solutions) == 920:
-                break
             for opset in product('+-*/', repeat=nops):
-                if len(solutions) == 920:
-                    break
                 for word in lang_vec:
-                    if len(solutions) == 920:
-                        break
                     displayres = []
                     stack = []
                     iopset = chain(opset)
                     inumset = chain(numset)
                     for c in word:
                         if c == 'N':
-                            x = (next(inumset) if version_info[0] == 3
-                                 else inumset.next())
+                            x = next(inumset)
                             stack.append(x)
                         elif c == 'O':
-                            x = (next(iopset) if version_info[0] == 3
-                                 else iopset.next())
+                            x = next(iopset) 
                             v1 = stack.pop()
                             v2 = stack.pop()
                             if x == '+':
@@ -52,9 +58,7 @@ def solve(nums, lang):
                                 raise ValueError('invalid operator')
                         else:
                             raise ValueError('invalid character')
-                        # Zero values are never interesting, because if there is
-                        # a solution which involves a zero, there's a simpler
-                        # one without it. Same for negative values.
+
                         if stack[-1] <= 0:
                             break
                         displayres.append(x)
@@ -67,8 +71,8 @@ def solve(nums, lang):
     return solutions
 
 
-# Python code to remove duplicate elements
-def Remove(duplicate):
+# Function to remove duplicate elements
+def remove(duplicate):
     final_list = []
     for num in duplicate:
         if num not in final_list:
@@ -77,28 +81,34 @@ def Remove(duplicate):
 
 
 if __name__ == "__main__":
-    #cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 25, 50, 75, 100]
+    cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 25, 50, 75, 100]
 
-    #perm = list(permutations(cards, r=5))
-    #res = sorted(list(OrderedDict.fromkeys(perm)))
+    # Getting permutations of length 5 from list 'cards'
+    perm = list(permutations(cards, r=5))
 
-    #sortedList = []
-    #for x in res:
-    #    sortedList.append(sorted(x))
+    # Removing all the obvious duplicates
+    res = sorted(list(OrderedDict.fromkeys(perm)))
 
+    # Sorting all the elements of 'res' in place ( 2 3 1 to 1 2 3 )
+    sortedList = []
+    for x in res:
+        sortedList.append(sorted(x))
+
+    # Removing the duplicates we made in the previous step
+    removed_list = remove(sortedList)
+
+    # Outputs to file for analysis
     #file = open("result.txt", "w")
-
-    #removed_list = Remove(sortedList)
-
     #for x in removed_list:
     #    lang = gen_lang()
     #    sol = solve(x, lang)
     #    file.write(str(x) + " ")
     #    file.write(str(len(sol)) + "\n")
-        #print(len(sol))
+    #    print(len(sol))
 
-    #file.close()
+    # file.close()
 
+    # Testing code for manual imput
 
     s = input("Type your string with spaces: ")
     numbers = list(map(int, s.split()))

@@ -1,5 +1,3 @@
-from math import factorial as fac
-
 
 def lang_k_rec(available_o, available_n, k, x, possible):
     if available_n > 0:
@@ -19,13 +17,6 @@ def gen_lang():
 
 
 if __name__ == "__main__":
-    ntotal = 0
     possible_k = gen_lang()
-    for av in range(5):
+    for av in range(4):
         print(possible_k[av])
-        l = len(possible_k[av])
-        print(l, 'words')
-        n = 4**(1 + av) * (fac(6) // fac(4 - av)) * l
-        ntotal += n
-        print(n, 'possibilities\n')
-    print(ntotal, 'total possibilities')
