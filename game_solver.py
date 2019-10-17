@@ -1,5 +1,26 @@
 from itertools import permutations, product, chain
+import matplotlib.pyplot as plt
 from collections import OrderedDict
+
+
+def analyze_results(filename):
+    f = open(filename, "r")
+    f1 = f.readlines()
+
+    max = 0
+    numberlist = []
+    for x in f1:
+        num = int(x.split("]", 1)[1])
+        numberlist.append(num)
+        if num > max:
+            max = num
+
+    print("Max attainable values between 101-999: ", max)
+    plt.plot(numberlist, linewidth=0.4)
+    plt.ylabel('Possible answers')
+    plt.xlabel('Card combinations')
+    plt.show()
+    f.close()
 
 
 def calc(word, numset, opset, displayres):
@@ -125,6 +146,9 @@ if __name__ == "__main__":
        print(len(sol))
 
     file.close()
+
+    # function makes a graph plotting the resulting data
+    # analyze_results("results.txt")
 
     # Testing code for manual input
     #
