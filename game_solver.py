@@ -84,6 +84,15 @@ def gen_lang():
     return possible_k
 
 
+# Function to remove duplicate elements
+def remove(duplicate):
+    final_list = []
+    for num in duplicate:
+        if num not in final_list:
+            final_list.append(num)
+    return final_list
+
+
 def gen_number_list(cards):
     # Getting permutations of length 5 from list 'cards'
     perm = list(permutations(cards, r=5))
@@ -99,15 +108,6 @@ def gen_number_list(cards):
     # Removing the duplicates we made in the previous step
     removed_list = remove(sorted_list)
     return removed_list
-
-
-# Function to remove duplicate elements
-def remove(duplicate):
-    final_list = []
-    for num in duplicate:
-        if num not in final_list:
-            final_list.append(num)
-    return final_list
 
 
 if __name__ == "__main__":
